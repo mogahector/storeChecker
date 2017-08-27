@@ -46,7 +46,13 @@ curl -X DELETE -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users/$USER_ID -k -v
 
 # Get users
 curl -X GET -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users -H "Accept: application/json" -k -v
+
+# Create store
+curl -X POST -u admin:password http://localhost:8080/stores -d '{ "name": "storeName", "address": "store address"}' -H "Content-Type: application/json" -k -v
+
+
 ```
+
 
 # API Documentation
 
