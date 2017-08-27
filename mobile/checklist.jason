@@ -1,0 +1,145 @@
+{
+  "$jason": {
+    "head": {
+      "actions": {
+        "$foreground": {
+          "type": "$reload"
+        },
+        "$load": {
+          "options": {
+            "score": "Please set score"
+          },
+          "success": {
+            "type": "$render"
+          },
+          "type": "$set"
+        },
+        "$pull": {
+          "success": {
+            "type": "$reload"
+          },
+          "type": "$flush"
+        }
+      },
+      "templates": {
+        "body": {
+          "sections": [
+            {
+              "header": {},
+              "items": [
+                {
+                  "action": {
+                    "options": {
+                      "items": [
+                        {
+                          "action": {
+                            "options": {
+                              "score": "Excellent"
+                            },
+                            "success": {
+                              "type": "$render"
+                            },
+                            "type": "$set"
+                          },
+                          "text": "Excellent"
+                        },
+                        {
+                          "action": {
+                            "options": {
+                              "score": "Good"
+                            },
+                            "success": {
+                              "type": "$render"
+                            },
+                            "type": "$set"
+                          },
+                          "text": "Good"
+                        },
+                        {
+                          "action": {
+                            "options": {
+                              "score": "Fair"
+                            },
+                            "success": {
+                              "type": "$render"
+                            },
+                            "type": "$set"
+                          },
+                          "text": "Fair"
+                        }
+                      ]
+                    },
+                    "type": "$util.picker"
+                  },
+                  "style": {
+                    "align": "center",
+                    "font": "Courier-Bold",
+                    "size": "18"
+                  },
+                  "text": "Overall Score: ",
+                  "type": "label"
+                },
+                {
+                  "components": [
+                    {
+                      "text": "Checklist Overall Score: ",
+                      "type": "label"
+                    },
+                    {
+                      "text": "{{$get.score}}",
+                      "type": "label"
+                    }
+                  ],
+                  "type": "horizontal"
+                },
+                {
+                  "components": [
+                    {
+                      "name": "status",
+                      "placeholder": "add comment...",
+                      "style": {
+                        "align": "center",
+                        "autocapitalize": "true",
+                        "autocorrect": "true",
+                        "background": "rgba(0,0,0,0)",
+                        "font": "HelveticaNeue",
+                        "height": "200",
+                        "placeholder_color": "#cecece",
+                        "size": "12",
+                        "spellcheck": "true",
+                        "width": "100%"
+                      },
+                      "type": "textarea"
+                    },
+                    {
+                      "action": {
+                        "trigger": "reload"
+                      },
+                      "style": {
+                        "background": "#A9A9A9",
+                        "corner_radius": "25",
+                        "font": "HelveticaNeue",
+                        "height": "50",
+                        "size": "12",
+                        "width": "100"
+                      },
+                      "text": "Submit checklist",
+                      "type": "button"
+                    }
+                  ],
+                  "style": {
+                    "align": "center",
+                    "padding": "30",
+                    "spacing": "20"
+                  },
+                  "type": "vertical"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "title": "Checklist"
+    }
+  }
+}
