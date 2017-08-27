@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: password
+            MYSQL_DATABASE: store_checker
+        ports:
+            - 3306:3306
