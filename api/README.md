@@ -1,19 +1,21 @@
 # API Documentation
 
 ## Resources
-/stores
+***GET|PUT|POST*** /stores
 
-  /checklists
-  
-    /{id}
-    
-      /item
-      
-        /{id}
-        
-          /images
+***GET|PUT|POST|DELETE*** /stores/{id}
+
+***GET|POST*** /stores/{id}/checklists
+
+***GET|PUT|POST*** /stores/{id}/checklists/{id}
+
+***GET|POST*** /stores/{id}/checklists/{id}/items
+
+***GET|PUT|POST*** /stores/{id}/checklists/{id}/item/{id}
+
+***GET|PUT|POST|DELETE*** /stores/{id}/checklists/{id}/item/{id}/images
           
          
-/users
+***GET|PUT|POST*** /users
 
-  {id}
+***GET|PUT|POST|DELETE*** /users/{id}
