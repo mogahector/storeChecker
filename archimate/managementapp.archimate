@@ -125,7 +125,7 @@
     <element xsi:type="archimate:TriggeringRelationship" id="a2b5fdb4-63c5-4baf-9644-fdceb697a869" source="1fd08368-d7c7-43b7-9232-8b6ecac74227" target="fc0e4a7a-bb1a-42a0-a4ce-69ca9eeb341b"/>
   </folder>
   <folder name="Views" id="91ae6697-6b36-4623-aa7d-63f38a929c1a" type="diagrams">
-    <folder name="Flows" id="61117613-7538-40ea-ae34-5c4ba803e611">
+    <folder name="Processes" id="61117613-7538-40ea-ae34-5c4ba803e611">
       <element xsi:type="archimate:ArchimateDiagramModel" name="Create checklist for store" id="038b5fb7-2526-4b43-80a7-b3d60933e231">
         <child xsi:type="archimate:DiagramObject" id="0bbf0c6d-a065-41f5-a72d-39817bc15bf3" archimateElement="7c7c8312-53e8-4375-8f95-f3e629612bac">
           <bounds x="192" y="26" width="120" height="55"/>
