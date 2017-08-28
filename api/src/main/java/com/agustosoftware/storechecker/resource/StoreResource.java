@@ -7,15 +7,20 @@ import com.agustosoftware.storechecker.exception.NotFoundException;
 import com.agustosoftware.storechecker.repository.StoreRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import java.net.URI;;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @Controller
 @RequestMapping("/stores")
+@ExposesResourceFor(Store.class)
 public class StoreResource {
 
     @Autowired
@@ -41,7 +46,7 @@ public class StoreResource {
             String errMsg = String.format("Store with ID: %s was not found.", storeId);
             throw new NotFoundException(errMsg);
         }
-
+        store.add(linkTo(methodOn(StoreResource.class).getStore(storeId)).withSelfRel());
         return ResponseEntity.ok(store);
     }
 
@@ -56,7 +61,7 @@ public class StoreResource {
             throw new NotFoundException(errMsg);
         }
 
-        store.setId(existingStore.getId());
+        store.setStoreId(existingStore.getStoreId());
         storeRepository.save(store);
 
         return ResponseEntity.ok(store);
@@ -67,17 +72,23 @@ public class StoreResource {
     ResponseEntity deleteStore(@PathVariable String storeId) throws Exception {
         Long searchId = checkAndGetStoreId(storeId);
 
-        storeRepository.delete(searchId);
+        if(storeRepository.exists(searchId)) {
+            storeRepository.delete(searchId);
+        }else{
+            throw new NotFoundException("Store with id:" + searchId + " not found");
+        }
 
         return ResponseEntity.noContent().build();
     }   
 
     @GetMapping()
-    public @ResponseBody ResponseEntity getStores() {
+    public @ResponseBody ResponseEntity getStores() throws Exception {
         Iterable<Store> stores = storeRepository.findAll();
-        StoreList storeList = new StoreList();
-        storeList.getStores().addAll(Lists.newArrayList(stores));
-        return ResponseEntity.ok(storeList);
+        for (Store store :
+                stores) {
+            store.add(linkTo(methodOn(StoreResource.class).getStore(store.getStoreId().toString())).withSelfRel());
+        }
+        return ResponseEntity.ok(stores);
     }
 
     private Long checkAndGetStoreId(@PathVariable String storeId) throws BadRequestException {
