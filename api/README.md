@@ -63,14 +63,9 @@ curl -X POST -u admin:password http://localhost:8080/stores -d '{ "name": "store
 
 ***GET|POST*** /stores/{id}/checklists
 
-***GET|PUT|POST*** /stores/{id}/checklists/{id}
+***GET|PUT|DELETE*** /stores/{id}/checklists/{id}
 
-***GET|POST*** /stores/{id}/checklists/{id}/items
-
-***GET|PUT|POST*** /stores/{id}/checklists/{id}/item/{id}
-
-***GET|PUT|POST|DELETE*** /stores/{id}/checklists/{id}/item/{id}/images
-          
+***GET|POST*** /stores/{id}/checklists/{id}/images
          
 ***GET|PUT|POST*** /users
 

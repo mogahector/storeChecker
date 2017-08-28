@@ -1,20 +1,20 @@
 package com.agustosoftware.storechecker.resource;
 
+import com.agustosoftware.storechecker.domain.entity.Checklist;
 import com.agustosoftware.storechecker.domain.entity.Store;
-import com.agustosoftware.storechecker.domain.entity.StoreList;
 import com.agustosoftware.storechecker.exception.BadRequestException;
 import com.agustosoftware.storechecker.exception.NotFoundException;
 import com.agustosoftware.storechecker.repository.StoreRepository;
-import com.google.common.collect.Lists;
+import com.agustosoftware.storechecker.service.Impl.ChecklistServiceImpl;
+import com.agustosoftware.storechecker.service.Impl.StoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;;
+import java.net.URI;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -25,6 +25,12 @@ public class StoreResource {
 
     @Autowired
     private StoreRepository storeRepository;
+
+    @Autowired
+    private ChecklistServiceImpl checklistService;
+
+    @Autowired
+    private StoreServiceImpl storeService;
 
     @PostMapping()
     public @ResponseBody
@@ -89,6 +95,22 @@ public class StoreResource {
             store.add(linkTo(methodOn(StoreResource.class).getStore(store.getStoreId().toString())).withSelfRel());
         }
         return ResponseEntity.ok(stores);
+    }
+
+    @PostMapping(path = "/{storeId}/checklists")
+    public @ResponseBody
+    ResponseEntity createChecklist (@PathVariable String storeId, @RequestBody Checklist checklist) throws Exception {
+        Store store = storeService.findStoreById(storeId);
+        if(store==null){
+            throw new NotFoundException("Store with id: " + storeId + " not found.");
+        }
+        Checklist checklist1 = checklistService.createChecklist(store);
+        store.addChecklist(checklist1);
+        storeService.saveStore(store);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(checklist1.getChecklistId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
     private Long checkAndGetStoreId(@PathVariable String storeId) throws BadRequestException {

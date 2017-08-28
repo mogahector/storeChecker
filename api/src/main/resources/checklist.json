@@ -1,0 +1,11 @@
+{
+  "trueOrFalseItems":[
+    {
+      "question":"Is this true?",
+      "value":null
+    },
+    {
+      "question":"Is this false?"
+    }
+  ]
+}
