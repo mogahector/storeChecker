@@ -24,16 +24,15 @@ repositories {
 
 dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-hateoas'
-	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'javax.ws.rs:javax.ws.rs-api:2.0'
 	compile 'com.google.guava:guava:19.0'
+	compile 'org.mindrot:jbcrypt:0.3m'
 
 	runtime 'mysql:mysql-connector-java'
 
 	compileOnly 'org.projectlombok:lombok'
 
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	testCompile 'org.springframework.security:spring-security-test'
 }

@@ -1,14 +1,12 @@
 package com.agustosoftware.storechecker.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.ws.rs.core.Link;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,7 +31,7 @@ public class User {
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
-    @Transient
+    @JsonIgnore
     private String password;
 
     @Column(name = "name")
@@ -47,15 +45,4 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-    @Transient
-    private List<Link> links;
-
-    public List<Link> getLinks() {
-        if (links == null) {
-            links = new ArrayList<Link>();
-        }
-        return links;
-    }
-
 }
