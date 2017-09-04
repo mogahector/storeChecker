@@ -13,6 +13,14 @@ docker-compose up -d
 
 # Run
 ./gradlew bootRun
+
+# Run Debug
+./gradlew clean bootRun --debug-jvm
+```
+
+# Load Data
+```
+mysql -h localhost -P 3306 --protocol=tcp -u admin -p < load_data.sql
 ```
 
 # Example calls
@@ -24,13 +32,17 @@ AUTH_PASSWORD=password
 
 Example Curl calls:
 
-NAME=John
-LAST_NAME=Smith
+USERNAME=user$RANDOM
+NAME=name
+LAST_NAME=last
+PASSWORD=password
+EMAIL=name.last@mail.com
+ROLE_NAME=ADMIN
 
 # Create user
-curl -X POST -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users -d '{ "name": "'$NAME'", "lastName": "'$LAST_NAME'"}' -H "Content-Type: application/json" -k -v
+curl -X POST -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users -d '{ "username": "'$USERNAME'", "name": "'$NAME'", "lastName": "'$LAST_NAME'", "password": "'$PASSWORD'", "email": "'$EMAIL'", "roles":[{"role": "'$ROLE_NAME'"}]}' -H "Content-Type: application/json" -k -v
 
-USER_ID=1
+USER_ID=2
 
 # Get user
 curl -X GET -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users/$USER_ID -H "Accept: application/json" -k -v
@@ -49,10 +61,7 @@ curl -X GET -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users -H "Accept: application
 
 # Create store
 curl -X POST -u admin:password http://localhost:8080/stores -d '{ "name": "storeName", "address": "store address"}' -H "Content-Type: application/json" -k -v
-
-
 ```
-
 
 # API Documentation
 
@@ -66,7 +75,7 @@ curl -X POST -u admin:password http://localhost:8080/stores -d '{ "name": "store
 ***GET|PUT|DELETE*** /stores/{id}/checklists/{id}
 
 ***GET|POST*** /stores/{id}/checklists/{id}/images
-         
+
 ***GET|PUT|POST*** /users
 
 ***GET|PUT|POST|DELETE*** /users/{id}
