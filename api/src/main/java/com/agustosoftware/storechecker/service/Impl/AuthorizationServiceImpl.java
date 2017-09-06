@@ -38,7 +38,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             String username = decodedAuth.split(":")[0];
             String password = decodedAuth.split(":")[1];
 
-            User user = userService.findUserByUsername(username);
+            User user = userService.getUserByUsername(username);
 
             if (!passwordEncoder.checkPassword(password, user.getPassword())) {
                 throw new UnauthorizedException(NOT_AUTHORIZED);

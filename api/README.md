@@ -30,14 +30,18 @@ ENDPOINT=http://localhost:8080
 AUTH_USER=admin
 AUTH_PASSWORD=password
 
+AUTH_USER=$USERNAME
+AUTH_PASSWORD=$PASSWORD
+
+
 Example Curl calls:
 
 USERNAME=user$RANDOM
 NAME=name
 LAST_NAME=last
-PASSWORD=password
+PASSWORD=P@ssword1
 EMAIL=name.last@mail.com
-ROLE_NAME=ADMIN
+ROLE_NAME=OWNER
 
 # Create user
 curl -X POST -u $AUTH_USER:$AUTH_PASSWORD $ENDPOINT/users -d '{ "username": "'$USERNAME'", "name": "'$NAME'", "lastName": "'$LAST_NAME'", "password": "'$PASSWORD'", "email": "'$EMAIL'", "roles":[{"role": "'$ROLE_NAME'"}]}' -H "Content-Type: application/json" -k -v
